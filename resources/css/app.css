@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.card-img-top {
+    height: 200px; /* Tinggi tetap */
+    width: 100%;   /* Lebar penuh */
+    object-fit: cover; /* Menjaga proporsi gambar */
+    border-radius: 8px; /* Opsional: Memberikan sudut bulat */
+}
+
+.html {
+    scroll-behavior: smooth;
+}
+
