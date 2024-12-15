@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Postingan;
+use App\Models\Ulasan;
+use App\Models\Laporan;
 
 class AdminController extends Controller
 {
@@ -14,7 +16,11 @@ class AdminController extends Controller
     {
         $users = User::count();
         $postings = Postingan::count();
-        return view('pages.admin.index',compact('users','postings'));
+        $ulasans = Ulasan::count();
+        $laporans = Laporan::count();
+        return view('pages.admin.index',compact('users','postings','ulasans','laporans'));
     
 }
+
+
 }

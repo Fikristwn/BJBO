@@ -15,3 +15,4 @@
 <!-- Template JS File -->
 <script src="{{ asset('assets/templates/admin/js/scripts.js') }}"></script>
 <script src="{{ asset('assets/templates/admin/js/custom.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

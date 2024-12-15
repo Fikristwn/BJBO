@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/templates/admin/modules/fontawesome/css/all.min.css') }}">
 
     <!-- CSS Libraries -->
+    
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/templates/admin/css/style.css') }}">

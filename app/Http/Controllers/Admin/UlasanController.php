@@ -43,5 +43,17 @@ public function show($id)
     return view('postingan.show', compact('postingan'));
 }
 
+
+
+    public function index()
+    {
+        // Mengambil semua data ulasan dengan relasi postingan dan user
+        $ulasans = Ulasan::with(['postingan', 'user'])->get();
+        
+        // Mengirim data ke view
+        return view('pages.admin.ulasan.index', compact('ulasans'));
+    }
 }
+
+
 

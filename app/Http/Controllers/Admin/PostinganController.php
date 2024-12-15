@@ -16,9 +16,7 @@
      public function index()
      {
          // Filter hanya yang statusnya 'disetujui'
-         $postingan = Postingan::where('status', 'disetujui')
-                               ->whereNotNull('status')  // Memastikan status tidak null
-                               ->get();
+         $postingan = Postingan::where('status', 'disetujui')->get();
         $ulasan = $postingan->ulasan; // Menampilkan semua ulasan yang terkait dengan produk
 
      
@@ -86,7 +84,32 @@
             }
         }
 
-   
+        public function cari(Request $request)
+        {
+            $keyword = $request->input('keyword');
+        
+            // Query pencarian berdasarkan nama atau deskripsi
+            $postingan = Postingan::where('name', 'like', '%' . $keyword . '%')
+                            ->orWhere('description', 'like', '%' . $keyword . '%')
+                            ->get();
+        
+            // Tampilkan hasil ke view
+            return view('pages.user.cari', compact('postingan', 'keyword'));
+        }
+        
+
+        public function filterByCategory($category)
+{
+    // Query produk berdasarkan kategori
+    $postingan = Postingan::where('category', $category)->get();
+
+    // Kirim data produk dan nama kategori ke view
+    return view('pages.user.postingan.kategori.index', [
+        'postingan' => $postingan,
+        'category' => ucfirst($category) // Untuk menampilkan nama kategori dengan huruf besar di awal
+    ]);
+}
+
       
     }
     

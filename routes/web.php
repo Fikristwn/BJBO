@@ -9,7 +9,8 @@ use App\Http\Controllers\Admin\PenggunaController;
 use App\Http\Controllers\Admin\PostingController;
 use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Auth\GoogleController;
-   use App\Http\Controllers\Admin\UlasanController;
+use App\Http\Controllers\Admin\UlasanController;
+use App\Http\Controllers\Admin\LaporanController;
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', [AuthController::class, 'splash'])->name('splash');
@@ -36,10 +37,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin-logout', [AuthController::class, 'admin_logout'])->name('admin.logout');
     Route::get('/admin/pengguna', [PenggunaController::class, 'index'])->name('admin.users');
     Route::get('/admin/posting', [PostingController::class, 'index'])->name('admin.postings');
-
-
+    Route::get('admin/ulasan', [UlasanController::class, 'index'])->name('admin.ulasans');
+    Route::get('admin/laporan', [LaporanController::class, 'index'])->name('admin.laporans');
 
     //pengguna
+
+    Route::get('/admin/pengguna/block/{id}', [PenggunaController::class, 'blockUser'])->name('pengguna.block');
+    Route::get('/admin/pengguna/unblock/{id}', [PenggunaController::class, 'unblockUser'])->name('pengguna.unblock');
     Route::delete('/admin/pengguna/delete/{id}', [PenggunaController::class, 'delete'])->name('pengguna.delete');
 
 
@@ -63,10 +67,11 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('/postingan/create', [PostinganController::class, 'create'])->name('user.postingan.create');
       Route::post('/postingan', [PostinganController::class, 'store'])->name('user.postingan.store');
       Route::get('/postingan/detail/{id}', [UserController::class, 'show'])->name('user.detail.postingan');
-   
-
+      Route::get('/postingan/cari', [PostinganController::class, 'cari'])->name('postingan.cari');
+      Route::get('/postingan/kategori/{kategori}', [PostinganController::class, 'filterByCategory'])->name('postingan.kategori');
       Route::post('/ulasan', [UlasanController::class, 'store'])->name('ulasan.store');
-      
+      Route::get('/laporan', [UserController::class, 'showForm'])->name('laporan.form');
+      Route::post('/laporan', [LaporanController::class, 'submit'])->name('laporan.submit');
     //profil
       Route::get('/profil', [ProfilController::class, 'index'])->name('user.profil');
       Route::get('/profil/edit/{id}', [ProfilController::class, 'edit'])->name('user.profil.edit');

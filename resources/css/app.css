@@ -14,3 +14,11 @@
     scroll-behavior: smooth;
 }
 
+.sidebar-menu li.active a {
+    background-color: #007bff; /* Ganti dengan warna pilihan Anda */
+    color: white; /* Ubah warna teks */
+}
+
+.sidebar-menu li.active a i {
+    color: white; /* Ubah warna ikon jika diperlukan */
+}

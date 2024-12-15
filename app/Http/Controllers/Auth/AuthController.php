@@ -18,14 +18,12 @@ class AuthController extends Controller
             'email' => 'required|email:rfc,dns',
             'password' => 'required|min:6|max:20',
         ]);
-
+    
         if ($validator->fails()) {
             Alert::error('Error', 'Pastikan semua email dan password terisi dengan benar!');
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-       
-        
+    
         // Login Admin
         if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
             toast('Selamat datang, admin!', 'success');
@@ -34,14 +32,24 @@ class AuthController extends Controller
         
         // Login User
         if (Auth::attempt($request->only('email', 'password'))) {
+            $user = Auth::user();
+            
+            // Cek jika akun diblokir
+            if ($user->is_blocked) {
+                Auth::logout();
+                Alert::error('Akun Diblokir', 'Akun Anda telah diblokir!');
+                return redirect()->route('login')->withInput();
+            }
+    
             toast('Selamat datang!', 'success');
             return redirect()->route('user.dashboard');
         }
-
+    
         // Jika otentikasi gagal
         Alert::error('Login Gagal!', 'Email atau password tidak valid!');
         return redirect()->back()->withInput();
     }
+    
 
     public function admin_logout()
     {
